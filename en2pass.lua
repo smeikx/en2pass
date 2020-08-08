@@ -39,12 +39,13 @@ do
 	content = file:read('a')
 end
 
-for entry in string.gmatch(content, '(.-)\n\n\n') do
+for entry in string.gmatch(content, '(.-\n)\n\n') do
 	entries[#entries+1] = {
 		title = string.match(entry, '[Tt]itle ?: ([^\n]+)\n'),
-		password = string.match(entry, '[Pp]assword ?: ([^\n]+)\n'),
+		password = string.match(entry, '[Pp]assword ?: ([^\n]+)\n?') or ' ',
 		content = ''
 	}
+
 	local content <const> = {}
 	for line in string.gmatch(entry, '([^\n]+)') do
 		if not string.find(line, '^[Tt]itle ?:') and not string.find(line, '^[Pp]assword ?:') then
@@ -58,6 +59,6 @@ local sub_dir = string.match(arg[1], '.*/(.+)%.')..'/'
 for _,entry in ipairs(entries) do
 	local pass <close> = assert(io.popen('pass insert -fm "'..sub_dir..entry.title..'"', 'w'), 'pass not working …')
 	--local pass = io.stdout -- a dry run for debugging – prints passwords to stdout!
-	if not entry.password then pass:write(entry.password..'\n') end
-	if entry.content then pass:write(entry.content) end
+	pass:write(entry.password..'\n')
+	pass:write(entry.content)
 end

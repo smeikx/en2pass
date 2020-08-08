@@ -58,6 +58,6 @@ local sub_dir = string.match(arg[1], '.*/(.+)%.')..'/'
 for _,entry in ipairs(entries) do
 	local pass <close> = assert(io.popen('pass insert -fm "'..sub_dir..entry.title..'"', 'w'), 'pass not working …')
 	--local pass = io.stdout -- a dry run for debugging – prints passwords to stdout!
-	if entry.password then pass:write(entry.password..'\n') end
-	pass:write(entry.content)
+	if not entry.password then pass:write(entry.password..'\n') end
+	if entry.content then pass:write(entry.content) end
 end

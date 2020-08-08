@@ -41,13 +41,13 @@ end
 
 for entry in string.gmatch(content, '(.-)\n\n\n') do
 	entries[#entries+1] = {
-		title = string.match(entry, 'title ?: ([^\n]+)\n'),
-		password = string.match(entry, 'password ?: ([^\n]+)\n'),
+		title = string.match(entry, '[Tt]itle ?: ([^\n]+)\n'),
+		password = string.match(entry, '[Pp]assword ?: ([^\n]+)\n'),
 		content = ''
 	}
 	local content <const> = {}
 	for line in string.gmatch(entry, '([^\n]+)') do
-		if not string.find(line, '^title:') and not string.find(line, '^password:') then
+		if not string.find(line, '^[Tt]itle ?:') and not string.find(line, '^[Pp]assword ?:') then
 			content[#content+1] = line
 		end
 	end

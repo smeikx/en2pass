@@ -56,6 +56,7 @@ for entry in string.gmatch(content, '(.-\n)\n\n') do
 end
 
 local sub_dir = string.match(arg[1], '.*/(.+)%.')..'/'
+--sub_dir = '' -- uncomment to not use a subdirectory
 for _,entry in ipairs(entries) do
 	local pass <close> = assert(io.popen('pass insert -fm "'..sub_dir..entry.title..'"', 'w'), 'pass not working …')
 	--local pass = io.stdout -- a dry run for debugging – prints passwords to stdout!

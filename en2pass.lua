@@ -52,7 +52,7 @@ for entry in string.gmatch(content, '(.-\n)\n\n') do
 			content[#content+1] = line
 		end
 	end
-	entries[#entries].content = table.concat(content, '\n')
+	entries[#entries].content = table.concat(content, '\n')..'\n'
 end
 
 local sub_dir = string.match(arg[1], '.*/(.+)%.')..'/'
